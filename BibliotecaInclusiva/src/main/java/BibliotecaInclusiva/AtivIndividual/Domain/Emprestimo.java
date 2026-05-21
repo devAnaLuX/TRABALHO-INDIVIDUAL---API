@@ -2,8 +2,8 @@ package BibliotecaInclusiva.AtivIndividual.Domain;
 
 import BibliotecaInclusiva.AtivIndividual.Enumerated.Formato;
 import BibliotecaInclusiva.AtivIndividual.Enumerated.Status;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -14,33 +14,41 @@ public class Emprestimo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Identificador único de empréstimo")
     private Long id;
 
     @Column(nullable = false)
+    @Schema(description = "Data de empréstimo do livro")
     private LocalDate dataEmprestimo;
 
     @Column(nullable = false)
+    @Schema(description = "Data prevista pra devolução do livro")
     private LocalDate dataPrevista;
 
     @Column
+    @Schema(description = "Data da devolução do livro")
     private LocalDate dataDevolucao;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Schema(description = "Formato emprestado", example = "AudioLivro")
     private Formato formatoEmprestado;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Schema(description = "Status do empréstimo", example = "Ativo")
     private Status status;
 
     @ManyToOne
     @JsonIgnoreProperties("emprestimos")
     @JoinColumn(name = "livro_id", nullable = false)
+    @Schema(description = "Livro que foi emprestado")
     private Livro livro;
 
-
     @ManyToOne
+    @JsonIgnoreProperties("emprestimos")
     @JoinColumn(name = "usuario_id", nullable = false)
+    @Schema(description = "Usuário que fez o empréstimo")
     private Usuario usuario;
 
     public Emprestimo() {

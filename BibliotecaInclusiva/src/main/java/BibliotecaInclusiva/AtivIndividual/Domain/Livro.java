@@ -1,5 +1,6 @@
 package BibliotecaInclusiva.AtivIndividual.Domain;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,44 +15,56 @@ public class Livro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Identificador único de livro")
     private Long id;
 
     @NotBlank
     @Column(nullable = false, length = 80)
+    @Schema(description = "Título do livro")
     private String titulo;
 
     @NotBlank
     @Column(nullable = false, length = 80)
+    @Schema(description = "Autor do livro")
     private String autor;
 
-    @NotNull
-    @Column(nullable = false, length = 13)
+    @NotBlank
+    @Column(nullable = false, length = 13, unique = true)
+    @Schema(description = "Código único do livro")
     private String isbn;
 
     @NotBlank
     @Column(nullable = false, length = 40)
+    @Schema(description = "Idioma do livro")
     private String idioma;
 
     @NotNull
     @Column(nullable = false)
+    @Schema(description = "Ano de publicação do livro")
     private Integer anoPublicacao;
 
     @Column(nullable = false)
+    @Schema(description = "Disponibilidade em braille")
     private boolean disponivelBraille;
 
     @Column(nullable = false)
+    @Schema(description = "Disponibilidade em audio livro")
     private boolean disponivelAudioLivro;
 
     @Column(nullable = false)
+    @Schema(description = "Disponibilidade em ebook")
     private boolean disponivelEbook;
 
     @Column(nullable = false)
+    @Schema(description = "Disponibilidade em libras")
     private boolean disponivelLibras;
 
     @Column(nullable = false)
+    @Schema(description = "Total de exemplares disponíveis")
     private Integer exemplaresTotal;
 
     @OneToMany(mappedBy = "livro")
+    @Schema(description = "Empréstimos do livro")
     private List<Emprestimo> emprestimos = new ArrayList<>();
 
     @ManyToMany
@@ -60,6 +73,7 @@ public class Livro {
             joinColumns = @JoinColumn(name = "livro_id"),
             inverseJoinColumns = @JoinColumn(name = "categoria_id")
     )
+    @Schema(description = "Categoria do livro")
     private List<Categoria> categorias = new ArrayList<>();
 
     public Livro() {

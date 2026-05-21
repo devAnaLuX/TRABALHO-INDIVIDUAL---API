@@ -1,6 +1,7 @@
 package BibliotecaInclusiva.AtivIndividual.Domain;
 
 import BibliotecaInclusiva.AtivIndividual.Enumerated.Tipo;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -16,32 +17,40 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Identificador único do usuário.", example = "1")
     private Long id;
 
     @NotBlank
     @Column(nullable = false, length = 80)
+    @Schema(description = "Nome do usuário")
     private String nome;
 
     @Email
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
+    @Schema(description = "Email do usuário")
     private String email;
 
     @NotBlank
     @Column(nullable = false, length = 11)
+    @Schema(description = "Telefone do usuário")
     private String telefone;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Schema(description = "Tipo do usuário", example = "Estudante")
     private Tipo tipo;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
+    @Schema(description = "Data do cadastro do usuário")
     private LocalDate dataCadastro;
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @Schema(description = "Perfil do usuário")
     private PerfilAcessibilidade perfilAcessibilidade;
 
     @OneToMany(mappedBy = "usuario")
+    @Schema(description = "Empréstimos do usuário")
     private List<Emprestimo> emprestimos = new ArrayList<>();
 
     public Usuario() {

@@ -1,5 +1,6 @@
 package BibliotecaInclusiva.AtivIndividual.Domain;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -12,16 +13,20 @@ public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Identificador único de categoria")
     private Long id;
 
     @NotBlank
     @Column(nullable = false, length = 80)
+    @Schema(description = "Nome da categoria", example = "Distopia")
     private String nome;
 
     @Column(nullable = false, length = 300)
+    @Schema(description = "Descrição da categoria")
     private String descricao;
 
     @ManyToMany(mappedBy = "categorias")
+    @Schema(description = "Livros da categoria")
     private List<Livro> livros = new ArrayList<>();
 
     public Categoria() {

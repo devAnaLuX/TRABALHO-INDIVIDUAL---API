@@ -3,7 +3,9 @@ package BibliotecaInclusiva.AtivIndividual.Domain;
 import BibliotecaInclusiva.AtivIndividual.Enumerated.Deficiencia;
 import BibliotecaInclusiva.AtivIndividual.Enumerated.Formato;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+
 
 @Entity
 @Table(name = "perfil_acessibilidade")
@@ -11,28 +13,35 @@ public class PerfilAcessibilidade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Identificador único do perfil")
     private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Schema(description = "Tipo de deficiência")
     private Deficiencia deficiencia;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Schema(description = "Formato de livro preferido", example = "Ebook")
     private Formato formatoPreferido;
 
     @Column
+    @Schema(description = "Tamanho da fonte do livro", example = "12")
     private Integer tamanhoFonte;
 
     @Column
+    @Schema(description = "Com ou sem alto contraste")
     private boolean altoContraste;
 
     @Column(nullable = false)
+    @Schema(description = "Com ou sem leitor de tela")
     private boolean leitorTela;
 
     @JsonIgnore
     @OneToOne
     @JoinColumn(name = "usuario_id", nullable = false, unique = true)
+    @Schema(description = "Usuário dono do perfil")
     private Usuario usuario;
 
     public PerfilAcessibilidade() {
