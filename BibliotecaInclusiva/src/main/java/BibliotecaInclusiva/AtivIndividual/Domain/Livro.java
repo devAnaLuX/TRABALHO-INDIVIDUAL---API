@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "livro")
+@Table(name = "livros")
 public class Livro {
 
     @Id
@@ -24,8 +24,8 @@ public class Livro {
     @Column(nullable = false, length = 80)
     private String autor;
 
-    @NotBlank
-    @Column(nullable = false)
+    @NotNull
+    @Column(nullable = false, length = 13)
     private String isbn;
 
     @NotBlank
@@ -61,6 +61,9 @@ public class Livro {
             inverseJoinColumns = @JoinColumn(name = "categoria_id")
     )
     private List<Categoria> categorias = new ArrayList<>();
+
+    public Livro() {
+    }
 
     public Livro(Long id, String titulo, String autor, String isbn, String idioma, Integer anoPublicacao, boolean disponivelBraille, boolean disponivelAudioLivro, boolean disponivelEbook, boolean disponivelLibras, Integer exemplaresTotal, List<Emprestimo> emprestimos, List<Categoria> categorias) {
         this.id = id;

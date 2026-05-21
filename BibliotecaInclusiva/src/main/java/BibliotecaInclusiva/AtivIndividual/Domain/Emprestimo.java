@@ -1,5 +1,9 @@
 package BibliotecaInclusiva.AtivIndividual.Domain;
 
+import BibliotecaInclusiva.AtivIndividual.Enumerated.Formato;
+import BibliotecaInclusiva.AtivIndividual.Enumerated.Status;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -30,8 +34,10 @@ public class Emprestimo {
     private Status status;
 
     @ManyToOne
+    @JsonIgnoreProperties("emprestimos")
     @JoinColumn(name = "livro_id", nullable = false)
     private Livro livro;
+
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)

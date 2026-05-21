@@ -21,7 +21,7 @@ public class Categoria {
     @Column(nullable = false, length = 300)
     private String descricao;
 
-    @ManyToMany(mappedBy = "livros")
+    @ManyToMany(mappedBy = "categorias")
     private List<Livro> livros = new ArrayList<>();
 
     public Categoria() {

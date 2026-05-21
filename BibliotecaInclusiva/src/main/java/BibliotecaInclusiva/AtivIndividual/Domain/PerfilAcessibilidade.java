@@ -1,5 +1,8 @@
 package BibliotecaInclusiva.AtivIndividual.Domain;
 
+import BibliotecaInclusiva.AtivIndividual.Enumerated.Deficiencia;
+import BibliotecaInclusiva.AtivIndividual.Enumerated.Formato;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -25,16 +28,17 @@ public class PerfilAcessibilidade {
     private boolean altoContraste;
 
     @Column(nullable = false)
-    private String leitorTela;
+    private boolean leitorTela;
 
+    @JsonIgnore
     @OneToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = false, unique = true)
     private Usuario usuario;
 
     public PerfilAcessibilidade() {
     }
 
-    public PerfilAcessibilidade(Long id, Deficiencia deficiencia, Formato formatoPreferido, Integer tamanhoFonte, boolean altoContraste, String leitorTela, Usuario usuario) {
+    public PerfilAcessibilidade(Long id, Deficiencia deficiencia, Formato formatoPreferido, Integer tamanhoFonte, boolean altoContraste, boolean leitorTela, Usuario usuario) {
         this.id = id;
         this.deficiencia = deficiencia;
         this.formatoPreferido = formatoPreferido;
@@ -84,11 +88,11 @@ public class PerfilAcessibilidade {
         this.altoContraste = altoContraste;
     }
 
-    public String getLeitorTela() {
+    public boolean isLeitorTela() {
         return leitorTela;
     }
 
-    public void setLeitorTela(String leitorTela) {
+    public void setLeitorTela(boolean leitorTela) {
         this.leitorTela = leitorTela;
     }
 

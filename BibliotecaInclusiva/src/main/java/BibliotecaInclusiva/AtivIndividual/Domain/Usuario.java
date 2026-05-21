@@ -1,8 +1,10 @@
 package BibliotecaInclusiva.AtivIndividual.Domain;
 
+import BibliotecaInclusiva.AtivIndividual.Enumerated.Tipo;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -32,10 +34,11 @@ public class Usuario {
     @Column(nullable = false)
     private Tipo tipo;
 
-    @Column(nullable = false)
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private LocalDate dataCadastro;
 
-    @OneToOne(mappedBy = "usuario")
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private PerfilAcessibilidade perfilAcessibilidade;
 
     @OneToMany(mappedBy = "usuario")
